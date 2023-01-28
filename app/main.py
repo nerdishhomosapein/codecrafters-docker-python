@@ -12,6 +12,7 @@ def main():
     args = sys.argv[4:]
 
     completed_process = subprocess.run([command, *args], capture_output=True)
+    returnCode = completed_process.returncode
     output = completed_process.stdout.decode("utf-8")
     error = completed_process.stderr.decode("utf-8")
     if output:
@@ -21,6 +22,7 @@ def main():
     if error:
         error = error.strip("\n")
         print(f"{error}", file=sys.stderr)
+    return sys.exit(returnCode)
 
 if __name__ == "__main__":
     main()
